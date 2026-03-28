@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>KUBARPAYNET</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* SIDEBAR MODERN */
+
+.layout{
+display:flex;
+}
+
+/* sidebar */
+
+.sidebar{
+width:230px;
+background:#1f2d3d;
+color:white;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+position:relative;
+transition:0.3s;
+overflow:hidden;
+
+animation:sidebarGlow 3s infinite;
+}
+
+/* logo */
+
+.sidebar-logo{
+text-align:center;
+padding:15px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-logo img{
+width:100%;
+max-width:140px;
+height:auto;
+transition:0.3s;
+}
+
+/* menu */
+
+.menu-item{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px 20px;
+cursor:pointer;
+transition:0.2s;
+color:white;
+text-decoration:none;
+transition: 0.2s;
+}
+
+.menu-item:hover{
+background:#1ab394;
+
+/* glow */
+box-shadow:0 0 5px #1ab394,
+0 0 5px #1ab394,
+0 0 5px #1ab394;
+}
+
+/* icon */
+
+.icon{
+font-size:18px;
+}
+
+/* tombol toggle */
+
+.toggle-btn{
+font-size:22px;
+background:none;
+border:none;
+cursor:pointer;
+margin-right:15px;
+}
+
+.main{
+flex:1;
+}
+
+body{margin:0;font-family:Arial;background:#dcdcdc;}
+
+.header{
+padding:20px;
+background:#5c8db9;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+color:white;
+position:relative;
+}
+
+/* efek gelap agar teks tetap terbaca */
+.header::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(135, 173, 124, 0.151);
+}
+
+.header .title,
+.header .subtitle{
+position:relative;
+z-index:5;
+}
+
+/* HEADER TEXT CONTROL */
+
+.header-text{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:flex-start;
+gap:0.5px;
+padding-left:10px;
+}
+
+/* TITLE */
+
+.header-title{
+font-size:50px;
+font-weight:bold;
+letter-spacing:3px;
+top: 5px;
+
+
+/* neon effect */
+color:#fff;
+
+text-shadow:
+0 0 5px #fff,
+0 0 5px #fff,
+0 0 5px #ff0000,
+0 0 5px #ff0000,
+0 0 5px #ff0000,
+0 0 5px #ff0000;
+}
+
+/* SUBTITLE */
+
+.header-subtitle{
+font-size:18px;
+font-weight:bold;
+letter-spacing:2px;
+
+color:#070707;
+
+text-shadow:
+0 0 5px #fff,
+0 0 5px #00ffff,
+0 0 5px #00ffff,
+0 0 5px #00ffff;
+}
+
+.header-waktu{
+position:absolute;
+right:5px;
+bottom:8px;
+text-align:center;
+font-family:Arial;
+}
+
+#jam{
+font-size:20px;
+font-weight:bold;
+font-display: block;
+color: #05f705;
+text-decoration: underline red 2px;
+-webkit-text-stroke: 0.3px rgb(255, 0, 0);
+}
+
+#tanggal{
+font-size:13px;
+color:#4f04ff;
+margin-top:2px;
+font-weight: bold;
+-webkit-text-stroke: 0.3px rgb(30, 255, 0);
+}
+
+.menu{background:#ddd;}
+
+.menu ul{list-style:none;margin:0;padding:0;text-align:center;}
+
+.menu li{display:inline-block;position:relative;}
+
+.menu a{
+display:block;
+padding:12px 25px;
+background:#b9d7a8;
+text-decoration:none;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.menu a:hover{color:red;}
+
+.submenu{
+display:none;
+position:absolute;
+background:#eee;
+min-width:160px;
+z-index:2;
+}
+
+.submenu a{
+display:block;
+border:1px solid #ccc;
+background:#eee;
+}
+
+.menu li:hover .submenu{display:block;}
+
+#content{
+background:#eee;
+min-height:420px;
+padding:20px;
+}
+
+.footer{
+background:#5c8db9;
+text-align:center;
+padding:20px;
+}
+
+/* DASHBOARD */
+
+.dashboard{text-align:center;}
+
+.stat-container{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.card{
+width:220px;
+border:1px solid #333;
+background:#f3e2b3;
+overflow:hidden;
+}
+
+.card-title{
+background:#f5b400;
+padding:5px;
+font-weight:bold;
+}
+
+.card-value{
+font-size:32px;
+color:red;
+padding:20px;
+word-wrap:break-word;
+}
+
+/* FORM */
+
+.form-box{
+width:420px;
+margin:auto;
+background:#b7cfa6;
+padding:20px;
+text-align:center;
+}
+
+.form-title{color:#ffa500;font-size:30px;}
+
+.form-table{margin:auto;text-align:left;}
+
+.form-table td{padding:5px;}
+
+.form-table input,
+.form-table select{
+width:220px;
+padding:5px;
+}
+
+.btn-simpan{
+background:#00a651;
+border:none;
+padding:10px 30px;
+font-size:18px;
+cursor:pointer;
+}
+
+.search-result{
+position:absolute;
+top:35px;
+left:0;
+width:70%;
+background:white;
+border-top:none;
+max-height:180px;
+overflow-y:auto;
+z-index:999;
+display:none;
+}
+
+.search-item{
+padding:8px;
+cursor:pointer;
+border-bottom:1px solid #5806f1;
+}
+
+.search-item:hover{
+background:#a0cf97;
+}
+
+/* TABLE */
+
+table{
+border-collapse:collapse;
+width:100%;
+margin-top:10px;
+background:white;
+}
+
+td,th{
+border:1px solid #999;
+padding:6px;
+text-align:center;
+}
+
+.table-header{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+.status-lunas{color:green;font-weight:bold;}
+.status-belum{color:red;font-weight:bold;}
+
+.pagination{
+text-align:right;
+margin-top:10px;
+}
+
+.popup-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.popup-box{
+background:white;
+width:340px;
+border-radius:8px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
+animation:popupAnim 0.25s;
+}
+
+.popup-title{
+background:#5c8db9;
+color:white;
+padding:12px;
+font-weight:bold;
+font-size:18px;
+border-radius:8px 8px 0 0;
+}
+
+.popup-message{
+padding:25px;
+font-size:16px;
+}
+
+.popup-buttons{
+padding:15px;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+.btn-cancel{
+background:#999;
+color:white;
+border:none;
+padding:8px 20px;
+cursor:pointer;
+}
+
+.btn-ok{
+background:#00a651;
+color:white;
+border:none;
+padding:8px 20px;
+cursor:pointer;
+}
+
+.btn-cancel:hover{background:#777;}
+.btn-ok:hover{background:#008a44;}
+
+@keyframes popupAnim{
+from{
+transform:scale(0.8);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.logo-sidebar{
+text-align:center;
+padding:15px;
+border-bottom:1px solid #555;
+}
+
+.logo-sidebar img{
+width:150px;
+}
+
+.icon{
+font-size:16px;
+}
+
+/* sembunyikan text saat collapse */
+
+.sidebar.collapsed .logo-text,
+.sidebar.collapsed .menu-title,
+.sidebar.collapsed .menu-item span{
+display:none;
+}
+
+/* icon tetap terlihat */
+
+.icon{
+font-size:18px;
+}
+
+/* tombol toggle */
+
+.toggle-btn{
+
+position:absolute;
+right:-20px;      /* keluar dari sidebar */
+top:50%;          /* posisi tengah */
+transform:translateY(-50%);
+
+width:30px;
+height:30px;
+
+border-radius:50%;
+border:none;
+
+background:#1f2d3d;
+color:white;
+
+cursor:pointer;
+
+box-shadow:0 2px 6px rgba(0,0,0,0.3);
+
+}
+
+/* COLLAPSE SIDEBAR FIX */
+
+.sidebar.collapsed{
+width: 20px;
+color: #689e53;
+}
+
+.sidebar.collapsed .menu-item span{
+display:none;
+}
+
+.sidebar.collapsed .menu-item{
+justify-content:center;
+}
+
+.sidebar.collapsed .sidebar-logo img{
+max-width:40px;
+}
+
+.sidebar.collapsed .sidebar-logo{
+padding:10px;
+}
+
+@keyframes sidebarGlow{
+
+0%{
+box-shadow:0 0 10px #00ffff;
+}
+
+50%{
+box-shadow:0 0 25px #00ffff;
+}
+
+100%{
+box-shadow:0 0 10px #00ffff;
+}
+
+}
+
+.logout-btn{
+margin-top:auto;
+border-top:1px solid rgba(255,255,255,0.2);
+}
+
+.logout-btn a{
+color:#ff6b6b;
+font-weight:bold;
+}
+
+.logout-btn a:hover{
+background:#ff4d4d;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<div class="sidebar" id="sidebar">
+
+<div class="sidebar-logo">
+<img src="img/logo.png">
+</div>
+
+<div class="dashboard">
+<canvas id="chart" height="120"></canvas>
+</div>
+
+<button class="toggle-btn" onclick="toggleSidebar()">❯</button>
+
+<a class="menu-item" onclick="gantiKampung('AWAI')">
+<span class="icon">🏠</span>
+<span>Kampung Awai</span>
+</a>
+
+<a class="menu-item" onclick="gantiKampung('DEMPAR')">
+<span class="icon">🏠</span>
+<span>Kampung Dempar</span>
+</a>
+
+<a class="menu-item" onclick="gantiKampung('LENDIAN')">
+<span class="icon">🏠</span>
+<span>Kampung Lendian</span>
+</a>
+
+<a class="menu-item" onclick="gantiKampung('MARIMUN')">
+<span class="icon">🏠</span>
+<span>Kampung Marimun</span>
+</a>
+
+<a class="menu-item" onclick="gantiKampung('MUARAJAWAQ')">
+<span class="icon">🏠</span>
+<span>Muara Jawaq</span>
+</a>
+
+<a class="menu-item" onclick="gantiKampung('MUUT')">
+<span class="icon">🏠</span>
+<span>Kampung Muut</span>
+</a>
+
+<a class="menu-item" onclick="gantiKampung('TONDOH')">
+<span class="icon">🏠</span>
+<span>Kampung Tondoh</span>
+</a>
+
+<!-- MENU KHUSUS SUPERADMIN -->
+<div id="menuSuperAdmin"></div>
+
+<div class="logout-btn">
+<a class="menu-item" onclick="konfirmasiLogout()">
+<span class="icon">🚪</span>
+<span>Logout</span>
+</a>
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+
+<div class="header-info">
+<span id="tanggal"></span> | 
+<span id="jam"></span>
+</div>
+
+<div class="header-text">
+
+<div class="header-title" id="headerTitle">
+KAMPUNG TONDOH
+</div>
+
+<div class="header-subtitle">
+Database Management & Billing Payment
+</div>
+
+</div>
+
+</div>
+
+<div class="menu">
+<ul>
+
+<li><a onclick="dashboard()">DASHBOARD</a></li>
+
+<li>
+<a>PELANGGAN</a>
+<div class="submenu">
+<a onclick="formPelanggan()">INPUT DATA</a>
+<a onclick="dataPelanggan()">DATA PELANGGAN</a>
+</div>
+</li>
+
+<li>
+<a>PEMBAYARAN</a>
+<div class="submenu">
+<a onclick="billing()">BILLING</a>
+<a onclick="dataPembayaran()">DATA PEMBAYARAN</a>
+</div>
+</li>
+
+<li><a onclick="laporan()">LAPORAN</a></li>
+<li><a onclick="kontak()">KONTAK</a></li>
+
+</ul>
+</div>
+
+<div id="content"></div>
+
+<div class="footer">
+©2026 Vhel45.ArtDesign
+</div>
+
+<script>
+
+const API_URL="https://script.google.com/macros/s/AKfycby13hX5HkKHDW0jNyZC3dYdH8s0pyUDPUvZ4nmTXJWfh71te2rfDKK76NO0BVib7mwwgw/exec";
+
+let session = localStorage.getItem("login_user");
+
+if(session){
+userLogin = JSON.parse(session);
+}else{
+window.location="login.html";
+}
+
+fetch(API_URL)
+.then(r=>r.json())
+.then(data=>{
+console.log(data);
+});
+
+let content=document.getElementById("content");
+
+/* =====================
+DATABASE ADMIN
+===================== */
+
+let users = [
+
+{
+username:"superadmin",
+password:"12345",
+role:"super",
+kampung:"ALL"
+},
+
+{
+username:"admin_awai",
+password:"awai123",
+role:"admin",
+kampung:"AWAI"
+},
+
+{
+username:"admin_dempar",
+password:"dempar123",
+role:"admin",
+kampung:"DEMPAR"
+},
+
+{
+username:"admin_lendian",
+password:"lendian123",
+role:"admin",
+kampung:"LENDIAN"
+},
+
+{
+username:"admin_muut",
+password:"muut123",
+role:"admin",
+kampung:"MUUT"
+},
+
+{
+username:"admin_tondoh",
+password:"tondoh123",
+role:"admin",
+kampung:"TONDOH"
+},
+
+{
+username:"admin_muara_jawaq",
+password:"mjawaq123",
+role:"admin",
+kampung:"MUARAJAWAQ"
+},
+
+{
+username:"admin_marimun",
+password:"marimun123",
+role:"admin",
+kampung:"MARIMUN"
+}
+
+];
+
+const dataKampung={
+
+KUBARPAYNET:{
+nama:"KUBARPAYNET",
+header:"img/kubarpaynet.jpg",
+warna:"#50D050"
+},
+
+AWAI:{
+prefix:"AWI",
+wilayah:"20255",
+header:"img/awai.jpg",
+warna:"#39FF14"
+},
+
+DEMPAR:{
+prefix:"DMP",
+wilayah:"20254",
+header:"img/dempar.jpg",
+warna:"#1F51FF"
+},
+
+LENDIAN:{
+prefix:"LND",
+wilayah:"20253",
+header:"img/lendian.jpg",
+warna:"#FF1493"
+},
+
+MARIMUN:{
+prefix:"MRM",
+wilayah:"_2025_0",
+header:"img/marimun.jpg",
+warna:"#A020F0"
+},
+
+MUARAJAWAQ:{
+prefix:"MJW",
+wilayah:"20249",
+header:"img/muarajawaq.jpg",
+warna:"#FFFF33"
+},
+
+MUUT:{
+prefix:"MUT",
+wilayah:"20251",
+header:"img/muut.jpg",
+warna:"#00FFFF"
+},
+
+TONDOH:{
+prefix:"TND",
+wilayah:"20250",
+header:"img/tondoh.jpg",
+warna:"#FF5F1F"
+}
+
+};
+
+function tampilkanMenuSuperAdmin(){
+
+if(userLogin.role=="super"){
+
+document.getElementById("menuSuperAdmin").innerHTML=`
+
+<a class="menu-item" onclick="dashboardSuperAdmin()">
+<span class="icon">🌐</span>
+<span>Statistik Semua Kampung</span>
+</a>
+
+`;
+
+}
+
+}
+
+function dashboardSuperAdmin(){
+
+let data = dataKampung["KUBARPAYNET"];
+
+document.getElementById("headerTitle").innerHTML = data.nama;
+document.getElementById("headerTitle").style.color = data.warna;
+
+let total=0;
+let sudah=0;
+let belum=0;
+let pendapatan=0;
+
+for(let p of pelanggan){
+
+total++;
+
+let tagihan = pembayaran.find(t=>t.id==p.id);
+
+if(tagihan && tagihan.status=="LUNAS"){
+sudah++;
+pendapatan+=Number(tagihan.jumlah);
+}else{
+belum++;
+}
+
+}
+
+content.innerHTML=`
+
+<h2 style="text-align:center;">STATISTIK SEMUA KAMPUNG</h2>
+
+<div class="box-container">
+
+<div class="box">
+<h3>TOTAL PELANGGAN</h3>
+<p>${total}</p>
+</div>
+
+<div class="box">
+<h3>SUDAH BAYAR</h3>
+<p>${sudah}</p>
+</div>
+
+<div class="box">
+<h3>BELUM BAYAR</h3>
+<p>${belum}</p>
+</div>
+
+<div class="box">
+<h3>PENDAPATAN</h3>
+<p>Rp ${pendapatan.toLocaleString()}</p>
+</div>
+
+</div>
+
+`;
+
+}
+
+function gantiKampung(nama){
+
+if(userLogin && userLogin.role=="admin" && userLogin.kampung!=nama){
+
+alert("Anda tidak punya akses ke kampung ini");
+
+return;
+
+}
+
+let title=document.querySelector(".header-title");
+
+if(title){
+title.innerText="KAMPUNG " + nama;
+title.style.color=dataKampung[nama].warna;
+}
+
+setHeaderBackground();
+
+loadPelanggan();
+
+generateTagihanBulanan();
+simpanDB();
+dashboard();
+grafikPendapatan();
+simpanPelanggan()
+
+}
+
+/* =====================
+HALAMAN LOGIN
+===================== */
+
+function prosesLogin(){
+
+let u = login_user.value;
+let p = login_pass.value;
+
+let user = users.find(x => x.username == u && x.password == p);
+
+if(!user){
+alert("Username / Password salah");
+return;
+}
+
+userLogin = user;
+
+localStorage.setItem("login_user", JSON.stringify(user));
+
+if(user.role == "admin"){
+
+kampungAktif = user.kampung;
+
+/* langsung masuk ke kampung admin */
+gantiKampung(user.kampung);
+
+}else{
+
+/* super admin */
+loadPelanggan();
+generateTagihanBulanan();
+dashboard();
+tampilkanMenuSuperAdmin();
+dashboardSuperAdmin();
+simpanPelanggan()
+
+}
+
+}
+
+/* DATABASE */
+
+let pelanggan=[];
+let pembayaran=[];
+
+let kampungAktif = userLogin.kampung;
+if(userLogin.role=="super"){
+kampungAktif="AWAI";
+}
+
+async function loadPelanggan(){
+
+let url = API_URL+"?aksi=getPelanggan&kampung="+kampungAktif;
+
+let res = await fetch(url);
+
+let data = await res.json();
+
+pelanggan = data.map(p=>({
+no:p[0],
+id:p[1],
+nama:p[2],
+hp:p[3],
+paket:p[4],
+alamat:p[5]
+}));
+
+}
+
+function simpanDB(){
+
+localStorage.setItem("pelanggan_"+kampungAktif,JSON.stringify(pelanggan));
+localStorage.setItem("pembayaran_"+kampungAktif,JSON.stringify(pembayaran));
+
+autoBackup();
+
+}
+
+/* PAGINATION */
+
+let pagePelanggan=1;
+let limitPelanggan=10;
+
+let pagePembayaran=1;
+let limitPembayaran=10;
+let bulanFilter=new Date().getMonth()+1;
+
+let pageLaporan=1;
+let limitLaporan=5;
+let tahunFilter=2026;
+
+function goPage(p){
+pagePelanggan=p;
+dataPelanggan();
+}
+
+function prevPage(){
+if(pagePelanggan>1){
+pagePelanggan--;
+dataPelanggan();
+}
+}
+
+function goPagePembayaran(p){
+pagePembayaran=p;
+dataPembayaran();
+}
+
+function prevPembayaran(){
+if(pagePembayaran>1){
+pagePembayaran--;
+dataPembayaran();
+}
+}
+
+function goPageLaporan(p){
+pageLaporan=p;
+laporan();
+}
+
+function prevLaporan(){
+if(pageLaporan>1){
+pageLaporan--;
+laporan();
+}
+}
+
+function nextLaporan(){
+pageLaporan++;
+laporan();
+}
+
+/* GENERATE ID */
+
+function generateID(){
+
+let prefix=dataKampung[kampungAktif].prefix;
+let wilayah=dataKampung[kampungAktif].wilayah;
+
+let max=0;
+
+pelanggan.forEach(p=>{
+
+let nomor = p.id ? parseInt(p.id.slice(-3)) : 0;
+
+if(nomor>max) max=nomor;
+
+});
+
+let urutan=String(max+1).padStart(3,"0");
+
+return prefix + wilayah + urutan;
+
+}
+
+/* ===================== */
+/* FORM INPUT PELANGGAN */
+/* ===================== */
+
+function formPelanggan(){
+
+let id=generateID();
+
+content.innerHTML=`
+
+<div class="form-box">
+
+<div class="form-title">INPUT DATA</div>
+
+<table class="form-table">
+
+<tr>
+<td>ID</td>
+<td><input id="id" value="${id}" readonly></td>
+</tr>
+
+<tr>
+<td>Nama</td>
+<td><input id="nama"></td>
+</tr>
+
+<tr>
+<td>No HP</td>
+<td><input id="hp"></td>
+</tr>
+
+<tr>
+<td>Paket</td>
+<td>
+<select id="paket">
+<option value="250000">Paket A</option>
+<option value="300000">Paket B</option>
+<option value="350000">Paket C</option>
+<option value="400000">Paket D</option>
+<option value="450000">Paket E</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Alamat</td>
+<td><input id="alamat"></td>
+</tr>
+
+</table>
+
+<br>
+
+<button class="btn-simpan" onclick="simpanPelanggan()">SIMPAN</button>
+
+</div>
+
+`;
+
+}
+
+function simpanPelanggan(){
+
+let data={
+aksi:"simpanPelanggan",
+kampung:kampungAktif,
+id:document.getElementById("id").value,
+nama:document.getElementById("nama").value,
+noHp:document.getElementById("hp").value,
+paket:document.getElementById("paket").value,
+alamat:document.getElementById("alamat").value
+};
+
+fetch(API_URL,{
+method:"POST",
+body:new URLSearchParams(data)
+})
+.then(r=>r.json())
+.then(res=>{
+console.log(res);
+});
+
+}
+
+async function simpanPelangganAPI(data){
+
+await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+aksi:"simpanPelanggan",
+kampung:kampungAktif,
+id:data.id,
+nama:data.nama,
+noHp:data.hp,
+paket:data.paket,
+alamat:data.alamat
+})
+});
+
+pelanggan.push(data);
+
+generateTagihanBulanan();
+
+simpanDB();
+
+bukaPopupInfo(
+"DATA BERHASIL",
+"Data pelanggan berhasil disimpan"
+);
+
+formPelanggan();
+
+}
+
+function cariPelanggan(){
+
+let keyword = searchPelanggan.value.toLowerCase();
+
+if(keyword==""){
+hasilCari.style.display="none";
+return;
+}
+
+let hasil = pelanggan.filter(p =>
+p.id.toLowerCase().includes(keyword) ||
+p.nama.toLowerCase().includes(keyword)
+);
+
+let html="";
+
+hasil.forEach(p=>{
+
+html+=`
+<div class="search-item"
+onclick="pilihPelanggan('${p.id}','${p.nama}','${p.hp}','${p.paket}')">
+${p.id} - ${p.nama}
+</div>
+`;
+
+});
+
+hasilCari.innerHTML=html;
+hasilCari.style.display="block";
+
+}
+
+/* ===================== */
+/* FORM BILLING */
+/* ===================== */
+
+function billing(){
+
+let opsi=pelanggan.map(p=>`
+<option value="${p.id}|${p.nama}|${p.hp}|${p.paket}">
+${p.id} - ${p.nama}
+</option>
+`).join("");
+
+content.innerHTML=`
+
+<div class="form-box">
+
+<div class="form-title">BILLING</div>
+
+<table class="form-table">
+
+<tr>
+<td>Pelanggan</td>
+<td style="position:relative">
+
+<input id="searchPelanggan"
+placeholder="Cari ID / Nama pelanggan"
+onkeyup="cariPelanggan()"
+style="width:220px;padding:6px">
+
+<div id="hasilCari" class="search-result"></div>
+
+</td>
+</tr>
+
+<tr>
+<td>ID</td>
+<td><input id="bid" readonly></td>
+</tr>
+
+<tr>
+<td>Nama</td>
+<td><input id="bnama" readonly></td>
+</tr>
+
+<tr>
+<td>No HP</td>
+<td><input id="bhp" readonly></td>
+</tr>
+
+<tr>
+<td>Paket</td>
+<td><input id="bpaket" readonly></td>
+</tr>
+
+<tr>
+<td>Jumlah</td>
+<td><input id="bjumlah" readonly></td>
+</tr>
+
+<tr>
+<td>Metode</td>
+<td>
+<select id="bmetode">
+<option>Cash</option>
+<option>Transfer</option>
+<option>QRIS</option>
+</select>
+</td>
+</tr>
+
+</table>
+
+<br>
+
+<button class="btn-simpan" onclick="simpanPembayaran()">BAYAR</button>
+
+</div>
+
+`;
+
+}
+
+function isiBilling(){
+
+let data=pilihPelanggan.value.split("|");
+
+let id=data[0];
+let nama=data[1];
+let hp=data[2];
+let paket=data[3];
+
+bid.value=id;
+bnama.value=nama;
+bhp.value=hp;
+
+/* tampilkan nama paket */
+
+if(paket==250000){
+bpaket.value="Paket A";
+}
+else if(paket==300000){
+bpaket.value="Paket B";
+}
+else if(paket==350000){
+bpaket.value="Paket C";
+}
+else if(paket==400000){
+bpaket.value="Paket D";
+}
+else if(paket==450000){
+bpaket.value="Paket E";
+}
+
+/* jumlah otomatis sesuai paket */
+
+bjumlah.value="Rp " + Number(paket).toLocaleString("id-ID");
+
+}
+
+function pilihPelanggan(id,nama,hp,paket){
+
+bid.value=id;
+bnama.value=nama;
+bhp.value=hp;
+
+if(paket==250000){
+bpaket.value="Paket A";
+}
+else if(paket==300000){
+bpaket.value="Paket B";
+}
+else if(paket==350000){
+bpaket.value="Paket C";
+}
+else if(paket==400000){
+bpaket.value="Paket D";
+}
+else if(paket==450000){
+bpaket.value="Paket E";
+}
+
+bjumlah.value="Rp " + Number(paket).toLocaleString("id-ID");
+
+hasilCari.innerHTML="";
+searchPelanggan.value=nama;
+
+}
+
+function simpanPembayaran(){
+
+let bulanSekarang=new Date().getMonth()+1;
+
+let data=pembayaran.find(b=>
+b.id==bid.value && b.bulan==bulanSekarang
+);
+
+if(data){
+
+data.metode=bmetode.value;
+data.status="LUNAS";
+
+}else{
+
+pembayaran.push({
+
+id:bid.value,
+nama:bnama.value,
+hp:bhp.value,
+paket:bpaket.value,
+jumlah:bjumlah.value
+.replace("Rp","")
+.replace(/\./g,"")
+.trim(),
+metode:bmetode.value,
+bulan:bulanSekarang,
+status:"LUNAS"
+
+});
+
+}
+
+simpanDB();
+
+bukaPopupInfo(
+"PEMBAYARAN BERHASIL",
+"Pembayaran pelanggan berhasil diproses"
+);
+
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+aksi:"simpanPembayaran",
+data:pembayaran
+})
+});
+
+billing();
+
+}
+
+function generateInvoice(){
+
+let now = new Date();
+
+let tahun = now.getFullYear();
+
+let nomor = Math.floor(Math.random()*9999);
+
+return "INV-"+tahun+"-"+nomor;
+
+}
+
+/* DASHBOARD */
+
+function dashboard(){
+
+let totalPelanggan=pelanggan.length;
+
+let bayarBulan=pembayaran.filter(p=> 
+p.bulan==bulanFilter && p.status=="LUNAS"
+);
+
+let pelangganBayar=bayarBulan.length;
+
+let belumBayar=totalPelanggan-pelangganBayar;
+
+let totalPendapatan=0;
+
+bayarBulan.forEach(p=>{
+totalPendapatan+=Number(p.jumlah||0);
+});
+
+content.innerHTML=`
+
+<div class="dashboard">
+
+<h2>STATISTIK PELANGGAN</h2>
+
+<div class="stat-container">
+
+<div class="card">
+<div class="card-title">TOTAL PELANGGAN</div>
+<div class="card-value">${totalPelanggan}</div>
+</div>
+
+<div class="card">
+<div class="card-title">SUDAH BAYAR</div>
+<div class="card-value">${pelangganBayar}</div>
+</div>
+
+<div class="card">
+<div class="card-title">BELUM BAYAR</div>
+<div class="card-value">${belumBayar}</div>
+</div>
+
+<div class="card">
+<div class="card-title">PENDAPATAN</div>
+<div class="card-value">Rp ${totalPendapatan.toLocaleString()}</div>
+</div>
+
+</div>
+
+</div>
+`;
+
+}
+
+/* MENU */
+
+function laporan(){
+
+let namaBulan=[
+"Januari","Februari","Maret","April","Mei","Juni",
+"Juli","Agustus","September","Oktober","November","Desember"
+];
+
+/* REKAP DATA BULANAN */
+
+let laporanData=[];
+
+for(let i=1;i<=12;i++){
+
+let bayar=pembayaran.filter(p=>
+p.bulan==i && p.status=="LUNAS"
+);
+
+let totalBayar=0;
+
+bayar.forEach(b=>{
+totalBayar+=Number(b.jumlah||0);
+});
+
+laporanData.push({
+bulan:namaBulan[i-1],
+pelanggan:bayar.length,
+bayar:totalBayar
+});
+
+}
+
+/* PAGINATION */
+
+let start=(pageLaporan-1)*limitLaporan;
+let end=start+parseInt(limitLaporan);
+
+let data=laporanData.slice(start,end);
+
+let totalPage=Math.ceil(laporanData.length/limitLaporan);
+
+if(totalPage==0) totalPage=1;
+
+/* HEADER */
+
+let html=`
+
+<h2 style="text-align:center;color:#f5b400">LAPORAN KEUANGAN</h2>
+
+<div class="table-header">
+
+<select onchange="limitLaporan=this.value;pageLaporan=1;laporan()">
+<option value="5">5</option>
+<option value="10">10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+</select>
+
+<select onchange="tahunFilter=this.value;laporan()">
+<option>2026</option>
+<option>2027</option>
+<option>2028</option>
+<option>2029</option>
+<option>2030</option>
+</select>
+
+</div>
+
+<button onclick="exportLaporan()">Export Excel</button>
+
+<table>
+
+<tr>
+<th>No</th>
+<th>Bulan</th>
+<th>Total Pelanggan</th>
+<th>Total Bayar</th>
+</tr>
+`;
+
+/* DATA */
+
+data.forEach((d,i)=>{
+
+html+=`
+<tr>
+<td>${start+i+1}</td>
+<td>${d.bulan}</td>
+<td>${d.pelanggan}</td>
+<td>Rp ${d.bayar.toLocaleString()}</td>
+</tr>
+`;
+
+});
+
+/* TABEL */
+
+html+=`</table>
+
+<div class="pagination">
+
+<button onclick="prevLaporan()">Prev</button>
+`;
+
+for(let i=1;i<=totalPage;i++){
+
+html+=`<button onclick="goPageLaporan(${i})">${i}</button>`;
+
+}
+
+html+=`
+
+<button onclick="nextLaporan()">Next</button>
+
+</div>
+`;
+
+content.innerHTML=html;
+
+}
+
+function kontak(){
+
+content.innerHTML=`
+
+<h2 style="text-align:center">KONTAK ADMIN</h2>
+
+<div class="form-box">
+
+<table style="margin:auto; text-align:left; width:100%;">
+
+<tr>
+<td width="120">Admin</td>
+<td>Rio Rivaldi</td>
+</tr>
+
+<tr>
+<td>No WA</td>
+<td>0895xxxxxxxxx</td>
+</tr>
+
+<tr>
+<td>Email</td>
+<td>xxxxxxxx@gmail.com</td>
+</tr>
+
+<tr>
+<td>Rek A.n</td>
+<td>Rio Rivaldi</td>
+</tr>
+
+<tr>
+<td>Bank</td>
+<td>BRI</td>
+</tr>
+
+<tr>
+<td>No Rek</td>
+<td>xxxxxxxxx</td>
+</tr>
+
+</table>
+
+</div>
+
+`;
+
+}
+
+function konfirmasiLogout(){
+
+let tanya = confirm("Apakah Anda yakin ingin keluar dari sistem?");
+
+if(tanya){
+
+logout();
+
+}
+
+}
+
+dashboard();
+
+/* EDIT PELANGGAN */
+
+function editPelanggan(id){
+
+let p=pelanggan.find(x=>x.id==id);
+
+content.innerHTML=`
+
+<div class="form-box">
+
+<div class="form-title">EDIT DATA</div>
+
+<table class="form-table">
+
+<tr>
+<td>ID</td>
+<td><input id="id" value="${p.id}" readonly></td>
+</tr>
+
+<tr>
+<td>Nama</td>
+<td><input id="nama" value="${p.nama}"></td>
+</tr>
+
+<tr>
+<td>No HP</td>
+<td><input id="hp" value="${p.hp}"></td>
+</tr>
+
+<tr>
+<td>Paket</td>
+<td>
+<select id="edit_paket">
+<option value="250000">Paket A</option>
+<option value="300000">Paket B</option>
+<option value="350000">Paket C</option>
+<option value="400000">Paket D</option>
+<option value="450000">Paket E</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Alamat</td>
+<td><input id="alamat" value="${p.alamat}"></td>
+</tr>
+
+</table>
+
+<br>
+
+<button class="btn-simpan" onclick="updatePelanggan()">UPDATE</button>
+
+</div>
+
+`;
+
+}
+
+function updatePelanggan(){
+
+let index=pelanggan.findIndex(p=>p.id==id.value);
+
+pelanggan[index]={
+id:id.value,
+nama:nama.value,
+hp:hp.value,
+paket:edit_paket.value,
+alamat:alamat.value
+};
+
+simpanDB();
+
+bukaPopupInfo(
+"UPDATE BERHASIL",
+"Data pelanggan berhasil diperbarui"
+);
+
+dataPelanggan();
+
+}
+
+function dataPelanggan(){
+
+let start=(pagePelanggan-1)*limitPelanggan;
+let end=start+parseInt(limitPelanggan);
+
+let data=pelanggan.slice(start,end);
+
+let totalPage=Math.ceil(pelanggan.length/limitPelanggan);
+
+if(totalPage==0) totalPage=1;
+
+let html=`
+
+<h2>DATA PELANGGAN</h2>
+
+<select onchange="limitPelanggan=this.value;pagePelanggan=1;dataPelanggan()">
+<option value="5">5</option>
+<option value="10" selected>10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+</select>
+
+<button onclick="exportPelanggan()">Export Excel</button>
+
+<table>
+
+<tr>
+<th>No</th>
+<th>ID</th>
+<th>Nama</th>
+<th>No HP</th>
+<th>Paket</th>
+<th>Alamat</th>
+<th>Aksi</th>
+</tr>
+`;
+
+if(data.length==0){
+
+html+=`
+<tr>
+<td colspan="7">Belum ada data pelanggan</td>
+</tr>
+`;
+
+}else{
+
+data.forEach((p,i)=>{
+
+html+=`
+<tr>
+<td>${start+i+1}</td>
+<td>${p.id}</td>
+<td>${p.nama}</td>
+<td>${p.hp}</td>
+<td>${namaPaket(p.paket)}</td>
+<td>${p.alamat}</td>
+<td>
+<button onclick="bukaPopupEdit('${p.id}')">Edit</button>
+<button onclick="hapusPelanggan('${p.id}')">Hapus</button>
+</td>
+</tr>
+`;
+
+});
+
+}
+
+html+=`</table>
+
+<div class="pagination">
+
+<button onclick="prevPage()">Prev</button>
+`;
+
+for(let i=1;i<=totalPage;i++){
+
+html+=`<button onclick="goPage(${i})">${i}</button>`;
+
+}
+
+html+=`
+
+<button onclick="nextPage()">Next</button>
+
+</div>
+`;
+
+document.getElementById("content").innerHTML=html;
+
+}
+
+function namaPaket(harga){
+
+if(harga==250000) return "Paket A";
+if(harga==300000) return "Paket B";
+if(harga==350000) return "Paket C";
+if(harga==400000) return "Paket D";
+if(harga==450000) return "Paket E";
+
+return "-";
+
+}
+
+/* HAPUS */
+
+function hapusPelanggan(id){
+
+bukaPopup(
+"HAPUS DATA",
+"Yakin ingin menghapus data pelanggan ini ?",
+function(){
+
+pelanggan = pelanggan.filter(p => p.id != id);
+
+simpanDB();
+
+dataPelanggan();
+
+bukaPopupInfo(
+"DATA DIHAPUS",
+"Data pelanggan berhasil dihapus"
+);
+
+}
+);
+
+}
+
+function dataPembayaran(){
+
+let namaBulan=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+
+/* gabungkan pelanggan + pembayaran */
+
+let dataGabung=pelanggan.map(p=>{
+
+let bayar=pembayaran.find(b=>b.id==p.id && b.bulan==bulanFilter);
+
+return{
+id:p.id,
+nama:p.nama,
+hp:p.hp,
+paket:p.paket,
+jumlah:bayar?bayar.jumlah:0,
+metode:bayar?bayar.metode:"-",
+status:bayar && bayar.status=="LUNAS" ? "LUNAS" : "BELUM"
+};
+
+});
+
+/* pagination */
+
+let start=(pagePembayaran-1)*limitPembayaran;
+let end=start+parseInt(limitPembayaran);
+
+let data=dataGabung.slice(start,end);
+
+let totalPage=Math.ceil(dataGabung.length/limitPembayaran);
+
+if(totalPage==0) totalPage=1;
+
+/* header */
+
+let html=`
+
+<h2>DATA PEMBAYARAN</h2>
+
+<div class="table-header">
+
+<select onchange="limitPembayaran=this.value;pagePembayaran=1;dataPembayaran()">
+<option value="5">5</option>
+<option value="10" selected>10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+</select>
+
+<select onchange="bulanFilter=this.value;pagePembayaran=1;dataPembayaran()">
+${namaBulan.map((b,i)=>`<option value="${i+1}" ${bulanFilter==i+1?"selected":""}>${b}</option>`).join("")}
+</select>
+
+</div>
+
+<button onclick="exportPembayaran()">Export Excel</button>
+
+<table>
+
+<tr>
+<th>No</th>
+<th>ID</th>
+<th>Nama</th>
+<th>No HP</th>
+<th>Paket</th>
+<th>Jumlah</th>
+<th>Metode</th>
+<th>Status</th>
+</tr>
+`;
+
+/* isi tabel */
+
+data.forEach((p,i)=>{
+
+let statusClass=p.status=="LUNAS"?"status-lunas":"status-belum";
+
+html+=`
+<tr>
+<td>${start+i+1}</td>
+<td>${p.id}</td>
+<td>${p.nama}</td>
+<td>${p.hp}</td>
+<td>${namaPaket(p.paket)}</td>
+<td>${p.jumlah?("Rp "+Number(p.jumlah).toLocaleString()):"-"}</td>
+<td>${p.metode}</td>
+<td class="${statusClass}">${p.status}</td>
+</tr>
+`;
+
+});
+
+html+=`</table>
+
+<div class="pagination">
+
+<button onclick="prevPembayaran()">Prev</button>
+`;
+
+for(let i=1;i<=totalPage;i++){
+
+html+=`<button onclick="goPagePembayaran(${i})">${i}</button>`;
+
+}
+
+html+=`
+
+<button onclick="nextPembayaran()">Next</button>
+
+</div>
+`;
+
+content.innerHTML=html;
+
+}
+
+function formatRupiah(angka){
+return "Rp " + Number(angka).toLocaleString("id-ID");
+}
+
+function generateTagihanBulanan(){
+
+let bulanSekarang=new Date().getMonth()+1;
+
+pelanggan.forEach(p=>{
+
+let sudahAda=pembayaran.find(b=> 
+b.id==p.id && b.bulan==bulanSekarang
+);
+
+if(!sudahAda){
+
+pembayaran.push({
+
+invoice:generateInvoice(),
+id:p.id,
+nama:p.nama,
+jumlah:p.paket,
+metode:"-",
+bulan:bulanSekarang,
+status:"BELUM"
+
+});
+
+}
+
+});
+
+simpanDB();
+
+}
+
+function downloadExcel(data,namaFile){
+
+let table="<table border='1'>";
+
+data.forEach(row=>{
+
+table+="<tr>";
+
+row.forEach(col=>{
+table+="<td>"+col+"</td>";
+});
+
+table+="</tr>";
+
+});
+
+table+="</table>";
+
+let blob=new Blob([table],{
+type:"application/vnd.ms-excel"
+});
+
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+
+a.href=url;
+a.download=namaFile+".xls";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+}
+
+function exportPelanggan(){
+
+bukaPopup(
+"EXPORT DATA",
+"Yakin ingin export DATA PELANGGAN ke Excel ?",
+function(){
+
+let data=[
+["ID","Nama","No HP","Paket","Alamat"]
+];
+
+pelanggan.forEach(p=>{
+data.push([p.id,p.nama,p.hp,p.paket,p.alamat]);
+});
+
+downloadExcel(data,"data_pelanggan_"+kampungAktif);
+
+}
+
+);
+
+}
+
+function exportPembayaran(){
+
+bukaPopup(
+"EXPORT DATA",
+"Yakin ingin export DATA PEMBAYARAN ke Excel ?",
+function(){
+
+let data=[
+["ID","Nama","No HP","Paket","Jumlah","Metode"]
+];
+
+pembayaran.forEach(p=>{
+data.push([
+p.id,
+p.nama,
+p.hp,
+namaPaket(p.paket),
+p.jumlah,
+p.metode
+]);
+});
+
+downloadExcel(data,"data_pembayaran_"+kampungAktif);
+
+}
+
+);
+
+}
+
+function exportLaporan(){
+
+bukaPopup(
+"EXPORT DATA",
+"Yakin ingin export laporan keuangan ke Excel ?",
+function(){
+
+let namaBulan=[
+"Januari","Februari","Maret","April","Mei","Juni",
+"Juli","Agustus","September","Oktober","November","Desember"
+];
+
+let data=[
+["No","Bulan","Total Pelanggan","Total Pendapatan"]
+];
+
+for(let i=1;i<=12;i++){
+
+let bayar=pembayaran.filter(p=>
+p.bulan==i && p.status=="LUNAS"
+);
+
+let total=0;
+
+bayar.forEach(b=>{
+total+=Number(b.jumlah||0);
+});
+
+data.push([
+i,
+namaBulan[i-1],
+bayar.length,
+total
+]);
+
+}
+
+downloadExcel(data,"laporan_keuangan_"+kampungAktif);
+
+}
+);
+
+}
+
+let popupAction=null;
+
+function bukaPopup(judul,pesan,aksi){
+
+popupTitle.innerText=judul;
+popupMessage.innerText=pesan;
+
+popupAction=aksi;
+
+popupConfirm.style.display="flex";
+
+}
+
+function bukaPopupInfo(judul,pesan){
+
+popupInfoTitle.innerText=judul;
+popupInfoMessage.innerText=pesan;
+
+popupInfo.style.display="flex";
+
+}
+
+function tutupPopupInfo(){
+
+popupInfo.style.display="none";
+
+}
+
+function tutupPopup(){
+
+popupConfirm.style.display="none";
+
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+let popupOK = document.getElementById("popupOK");
+
+popupOK.onclick = function(){
+
+if(popupAction){
+popupAction();
+}
+
+tutupPopup();
+
+};
+
+});
+
+function bukaPopupEdit(id){
+
+let p = pelanggan.find(x => x.id == id);
+
+edit_id.value = p.id;
+edit_nama.value = p.nama;
+edit_hp.value = p.hp;
+edit_paket.value = p.paket;
+edit_alamat.value = p.alamat;
+
+popupEdit.style.display="flex";
+
+}
+
+function tutupPopupEdit(){
+
+popupEdit.style.display="none";
+
+}
+
+function updatePelangganPopup(){
+
+let index = pelanggan.findIndex(p => p.id == edit_id.value);
+
+pelanggan[index] = {
+
+id: edit_id.value,
+nama: edit_nama.value,
+hp: edit_hp.value,
+paket: edit_paket.value,
+alamat: edit_alamat.value
+
+};
+
+simpanDB();
+
+tutupPopupEdit();
+
+dataPelanggan();
+
+bukaPopupInfo(
+"UPDATE BERHASIL",
+"Data pelanggan berhasil diperbarui"
+);
+
+}
+
+function setHeaderBackground(){
+
+let data=dataKampung[kampungAktif];
+
+if(data && data.header){
+
+document.querySelector(".header").style.backgroundImage =
+"url('"+data.header+"')";
+
+}else{
+
+document.querySelector(".header").style.background="#5c8db9";
+
+}
+
+}
+
+setHeaderBackground();
+
+function toggleSidebar(){
+
+let sidebar = document.getElementById("sidebar");
+let btn = document.querySelector(".toggle-btn");
+
+sidebar.classList.toggle("collapsed");
+
+if(sidebar.classList.contains("collapsed")){
+
+btn.innerHTML="❯";
+localStorage.setItem("sidebar","collapsed");
+
+}else{
+
+btn.innerHTML="❮";
+localStorage.setItem("sidebar","open");
+
+}
+
+}
+
+function nextPage(){
+
+let totalPage=Math.ceil(pelanggan.length/limitPelanggan);
+
+if(pagePelanggan<totalPage){
+pagePelanggan++;
+dataPelanggan();
+}
+
+}
+
+function nextPembayaran(){
+
+let totalPage=Math.ceil(pelanggan.length/limitPembayaran);
+
+if(pagePembayaran<totalPage){
+pagePembayaran++;
+dataPembayaran();
+}
+
+}
+
+if(session){
+
+userLogin=JSON.parse(session);
+
+if(userLogin.role=="admin"){
+kampungAktif=userLogin.kampung;
+}
+
+loadPelanggan();
+generateTagihanBulanan();
+dashboard();
+tampilkanMenuSuperAdmin();
+
+}else{
+window.location="login.html";
+
+}
+
+function autoBackup(){
+
+let data={
+pelanggan:pelanggan,
+pembayaran:pembayaran
+};
+
+localStorage.setItem(
+"backup_"+kampungAktif,
+JSON.stringify(data)
+);
+
+}
+
+function tambahAdmin(){
+
+if(userLogin.role!="super"){
+alert("Hanya super admin");
+return;
+}
+
+let username = prompt("Username admin");
+let password = prompt("Password admin");
+let kampung = prompt("Nama kampung");
+
+users.push({
+username:username,
+password:password,
+role:"admin",
+kampung:kampung
+});
+
+alert("Admin berhasil dibuat");
+
+}
+
+function buatSidebar(){
+
+let menu = `
+<a class="menu-item" onclick="gantiKampung('AWAI')">🏠 Kampung Awai</a>
+<a class="menu-item" onclick="gantiKampung('DEMPAR')">🏠 Kampung Dempar</a>
+<a class="menu-item" onclick="gantiKampung('LENDIAN')">🏠 Kampung Lendian</a>
+<a class="menu-item" onclick="gantiKampung('MARIMUN')">🏠 Kampung Marimun</a>
+<a class="menu-item" onclick="gantiKampung('MUARAJAWAQ')">🏠 Muara Jawaq</a>
+<a class="menu-item" onclick="gantiKampung('MUUT')">🏠 Kampung Muut</a>
+<a class="menu-item" onclick="gantiKampung('TONDOH')">🏠 Kampung Tondoh</a>
+`;
+
+if(userLogin.role=="super"){
+
+menu += `
+<a class="menu-item" onclick="dashboardSuperAdmin()">
+👑 KUBARPAYNET
+</a>
+`;
+
+}
+
+menu += `
+<a class="menu-item logout" onclick="logout()">🚪 Logout</a>
+`;
+
+document.getElementById("sidebar").innerHTML = menu;
+
+}
+
+function jamRealtime(){
+
+let now = new Date();
+
+let hariList = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+let bulanList = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+
+let hari = hariList[now.getDay()];
+let tanggal = now.getDate();
+let bulan = bulanList[now.getMonth()];
+let tahun = now.getFullYear();
+
+let jam = now.getHours();
+let menit = now.getMinutes();
+let detik = now.getSeconds();
+
+if(jam<10) jam="0"+jam;
+if(menit<10) menit="0"+menit;
+if(detik<10) detik="0"+detik;
+
+/* ZONA WAKTU */
+
+let zona="WIB";
+
+let offset = now.getTimezoneOffset()/60*-1;
+
+if(offset==7) zona="WIB";
+if(offset==8) zona="WITA";
+if(offset==9) zona="WIT";
+
+/* TAMPILKAN */
+
+document.getElementById("tanggal").innerHTML =
+hari+", "+tanggal+" "+bulan+" "+tahun;
+
+document.getElementById("jam").innerHTML =
+jam+":"+menit+":"+detik+" "+zona;
+
+}
+
+setInterval(jamRealtime,1000);
+
+function grafikPendapatan(){
+
+let dataBulan=[1200000,1400000,1600000,1800000,2000000];
+
+let ctx=document.getElementById("chart").getContext("2d");
+
+new Chart(ctx,{
+type:"line",
+data:{
+labels:["Jan","Feb","Mar","Apr","Mei"],
+datasets:[{
+label:"Pendapatan",
+data:dataBulan
+}]
+}
+});
+
+}
+
+async function initApp(){
+
+let session = localStorage.getItem("login_user");
+
+if(session){
+
+userLogin = JSON.parse(session);
+
+if(userLogin.role=="admin"){
+kampungAktif = userLogin.kampung;
+}
+
+await loadPelanggan();
+generateTagihanBulanan();
+dashboard();
+tampilkanMenuSuperAdmin();
+grafikPendapatan();
+jamRealtime();
+setHeaderBackground();
+
+}
+
+}
+
+window.onload = function(){
+
+let sidebar = document.getElementById("sidebar");
+let btn = document.querySelector(".toggle-btn");
+
+let status = localStorage.getItem("sidebar");
+
+if(status=="collapsed"){
+
+sidebar.classList.add("collapsed");
+btn.innerHTML="❯";
+
+}else{
+
+btn.innerHTML="❮";
+
+}
+
+initApp();
+setHeaderBackground();
+jamRealtime();
+}
+
+function logout(){
+localStorage.removeItem("login_user");
+window.location="login.html";
+}
+
+</script>
+
+</div>
+</div>
+
+<div id="popupConfirm" class="popup-overlay">
+
+<div class="popup-box">
+
+<div class="popup-title" id="popupTitle">
+Konfirmasi
+</div>
+
+<div class="popup-message" id="popupMessage">
+Pesan
+</div>
+
+<div class="popup-buttons">
+
+<button class="btn-cancel" onclick="tutupPopup()">
+BATAL
+</button>
+
+<button class="btn-ok" id="popupOK">
+OK
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="popupInfo" class="popup-overlay">
+
+<div class="popup-box">
+
+<div class="popup-title" id="popupInfoTitle">
+Informasi
+</div>
+
+<div class="popup-message" id="popupInfoMessage">
+Pesan
+</div>
+
+<div class="popup-buttons">
+
+<button class="btn-ok" onclick="tutupPopupInfo()">
+OK
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="popupEdit" class="popup-overlay">
+
+<div class="popup-box" style="width:420px;">
+
+<div class="popup-title">
+EDIT DATA PELANGGAN
+</div>
+
+<div class="popup-message">
+
+<table class="form-table">
+
+<tr>
+<td>ID</td>
+<td><input id="edit_id" readonly></td>
+</tr>
+
+<tr>
+<td>Nama</td>
+<td><input id="edit_nama"></td>
+</tr>
+
+<tr>
+<td>No HP</td>
+<td><input id="edit_hp"></td>
+</tr>
+
+<tr>
+<td>Paket</td>
+<td>
+<select id="edit_paket">
+<option value="250000">Paket A</option>
+<option value="300000">Paket B</option>
+<option value="350000">Paket C</option>
+<option value="400000">Paket D</option>
+<option value="450000">Paket E</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Alamat</td>
+<td><input id="edit_alamat"></td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="popup-buttons">
+
+<button class="btn-cancel" onclick="tutupPopupEdit()">
+BATAL
+</button>
+
+<button class="btn-ok" onclick="updatePelangganPopup()">
+UPDATE
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
