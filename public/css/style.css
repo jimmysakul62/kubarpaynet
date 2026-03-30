@@ -1,0 +1,587 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@900&family=Russo+One&display=swap');
+
+/* =========================================
+   1. RESET & BASIC SETUP
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #E6E6E6;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* =========================================
+   2. SIDEBAR STYLES (Dimerger dengan Collapse)
+   ========================================= */
+.sidebar {
+    width: 200px;
+    background-color: rgba(72, 77, 8, 0.6);
+    box-shadow:
+    0 0 8px #fa3504,
+    0 0 8px #fff,
+    0 0 4px #f74a06,
+    0 0 5px #1efd00,
+    0 0 2px #fd3300;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: visible; /* Tombol toggle tetap terlihat */
+}
+
+/* Logika Collapse */
+.sidebar.collapsed {
+    width: 0 !important;
+    padding: 0 !important;
+    border-right: none;
+}
+
+.sidebar.collapsed .logo-container,
+.sidebar.collapsed .sidebar-menu,
+.sidebar.collapsed .sidebar-footer {
+    display: none;
+}
+
+.logo-container {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+    0 0 8px #fa3504,
+    0 0 8px #fff,
+    0 0 4px #f74a06,
+    0 0 5px #1efd00,
+    0 0 2px #fd3300;
+}
+
+.sidebar-menu {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-menu a {
+    text-decoration: none;
+    color: #000;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #00E676;
+    box-shadow:
+    0 0 8px #fa3504,
+    0 0 8px #fff,
+    0 0 4px #f74a06,
+    0 0 5px #1efd00,
+    0 0 2px #fd3300;
+}
+
+.sidebar-menu a:hover {
+    background-color: #E6B800;
+    transform: scaleX(1.1);
+    transition: 0.3s;
+}
+
+.sidebar-footer {
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.btn-logout {
+    width: 100%;
+    background-color: #FF0000;
+    border-radius: 5px;
+    box-shadow:
+    0 0 8px #fa049c,
+    0 0 8px #fff,
+    0 0 10px #f8f8f8,
+    0 0 5px #1efd00,
+    0 0 10px #6b6b6a;
+    color: #000;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-logout:hover{
+    transform: scaleX(1.1);
+    transition: 0.3s;
+}
+
+
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: #f53d05;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+    0 0 8px #4e04fa,
+    0 0 8px #fff,
+    0 0 4px #0317c9,
+    0 0 5px #1efd00,
+    0 0 2px #1100fd;
+}
+
+.sidebar-toggle-btn :hover {
+    transform: scaleX(1.1);
+    transition: 0.3s;
+}
+
+/* =========================================
+   3. MAIN CONTENT & HEADER
+   ========================================= */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;           
+    overflow-y: auto;        
+    position: relative;
+}
+
+.top-header {
+    background-color: #fff;
+    position: relative;
+}
+
+.header-banner {
+    position: relative;
+    background-size: auto;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+#mainTitle {
+    font-family: 'Russo One', sans-serif;
+    font-size: 70px;
+    bottom: 2px ;
+    color: #FFC000;
+    /* Efek Glow Tipis */
+    text-shadow: 0 0 10px #ff7300, 4px 4px 0px #000;
+}
+
+#subTitle {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow:
+    0 0 3px #4e04fa,
+    0 0 3px #fff,
+    0 0 2px #0317c9,
+    0 0 2px #1efd00,
+    0 0 2px #1100fd;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header-time {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+    color: #FFC000;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px #000;
+
+}
+
+#timeDisplay { color: #FFC000; font-size: 28px; font-weight: bold; display: block; }
+#dateDisplay { color: #FF0000; font-size: 14px; font-weight: bold; }
+
+/* =========================================
+   4. NAVIGATION & DROPDOWN (ANTI-HILANG & RATA)
+   ========================================= */
+.top-nav {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    background-color: #a39409;
+    padding: 0;
+    box-shadow: 
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 10px #00fdfd,
+    0 0 8px #00fdfd,
+    0 0 10px #00fdfd;
+}
+
+/* Base Style untuk link biasa DAN tombol dropdown */
+.top-nav a, 
+.dropbtn {
+    text-decoration: none;
+    color: #000000;
+    background-color: #68f305;
+    padding: 15px 25px; /* Padding ditambah sedikit agar lebih mantap */
+    margin: 4px;
+    min-width: 150px;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    height: auto;
+    box-shadow: 
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 10px #fd1e00,
+    0 0 8px #fd1e00,
+    0 0 10px #fd1e00;
+}
+
+/* Garis penutup untuk menu paling kanan */
+.top-nav a:last-child, 
+.top-nav .dropdown:last-child .dropbtn {
+    border-right: none;
+}
+
+/* Efek Hover & Active */
+.top-nav a:hover, 
+.top-nav a.active, 
+.dropdown:hover .dropbtn {
+    background-color: #6d0a5c;
+    color: #FF0000;
+    transform: scaleX(1.1);
+    transition: 0.3s;
+}
+
+/* Container Utama Dropdown */
+.dropdown {
+    position: relative;
+    display: flex; /* Mengikuti aliran flex nav */
+}
+
+/* Kotak Isi Sub-Menu */
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    min-width: 170px;
+    left: 0;
+    top: 100%; /* Pas di bawah tombol */
+    margin-top: 0; /* Pastikan tidak ada celah */
+}
+
+/* Link di dalam Sub-Menu */
+.dropdown-content a {
+    display: block;
+    color: rgb(168, 6, 6);
+    padding: 12px 15px;
+    background-color: #68f305;
+    margin: 2px;
+    width: 100% ;
+    border-left: none ; /* Hilangkan border samping di dalam dropdown */
+    height: auto ; /* Tinggi menyesuaikan teks */
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+/* Efek Hover Sub-Menu */
+.dropdown-content a:hover {
+    background-color: #6d0a5c;
+    color: #FF0000;
+    box-shadow: 
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 10px #00fdfd,
+    0 0 8px #00fdfd,
+    0 0 10px #00fdfd;
+}
+
+/* Munculkan Dropdown saat Hover - Menggunakan Block agar lebih stabil */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* =========================================
+   5. DASHBOARD & STATS (Dimerger)
+   ========================================= */
+.content-area {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title {
+    color: #ff0000; /* Kuning Emas konsisten */
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0 30px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 80%;
+    max-width: 800px;
+}
+
+.stat-card {
+    background: white;
+    border: 2px solid #000;
+    padding: 0; /* Header & Body yang mengatur padding */
+    text-align: center;
+    box-shadow: 6px 6px 0px #FFC000;
+}
+
+.stat-header {
+    background-color: #FFC000;
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #000;
+    font-size: 14px;
+}
+
+.stat-body {
+    background-color: #FFF2CC;
+    color: #C00000;
+    font-size: 60px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+/* =========================================
+   6. TABLES & FORMS
+   ========================================= */
+.table-container { width: 100%; overflow-x: auto; padding: 0 10px; }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.data-table th {
+    background-color: #A6D014;
+    color: black;
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+.data-table td { padding: 10px; border: 1px solid #000; }
+
+/* --- CONTAINER UTAMA FORM --- */
+.form-wrapper {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    width: 450px;
+    background-color: #68f305; /* Warna hijau terang di gambar baru */
+    padding: 20px;
+    border-radius: 20px; /* Lengkungan luar form */
+    border: 2px solid #000;
+    box-shadow: 8px 8px 0px #000;
+}
+
+/* --- GRUP PENCARIAN (Biar Tombol Cari Gak Kecil & Sejajar) --- */
+.input-search-group {
+    display: flex; /* WAJIB: Biar Input & Tombol Cari sejajar horizontal */
+    margin-bottom: 25px;
+    border-radius: 12px; /* Lengkungan grup cari */
+    /* Biar ujung input/tombol gak nabrak lengkungan */
+}
+
+.input-search {
+    flex-grow: 1; /* Input ambil sisa ruang */
+    border: none;
+    padding: 12px 20px;
+    outline: none;
+    font-size: 14px;
+}
+
+.btn-cari {
+    background-color: #4c05f1;
+    border: none;
+    color: black;
+    padding: 0 20px; /* Beri ruang kiri-kanan biar tombol gak ciut */
+    cursor: pointer;
+    font-weight: bold;
+    border: 2px solid black;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.btn-cari:hover {
+    background-color: #FFC000;
+    transform: scaleX(1.1);
+    transition: 0.3s;
+}
+
+/* --- FIELD INPUT BIASA (ID, NAMA, DLL) --- */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Label di atas, Input di bawah agar rapi */
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: flex;
+    font-size: 16px;
+    color: #000;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #000;
+    border-radius: 12px; /* Lengkungan tiap kotak input */
+    font-size: 14px;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: #0070C0;
+    box-shadow: 0 0 5px rgba(0,112,192,0.5);
+}
+.btn-simpan {
+    background-color: #00E676;
+    padding: 10px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px auto 0;
+    display: block;
+    border: 1px solid #000;
+    border-radius: 8px;
+}
+
+.btn-simpan:hover {
+    background-color: #1b02fd;
+    transform: scaleX(1.1);
+    transition: 0.3s;
+}
+
+/* =========================================
+   7. LOGIN PAGE
+   ========================================= */
+.login-body {
+    background-image: url('../img/bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card-new {
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 320px;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Styling grup input agar rapi */
+.login-form-new .input-group-new {
+    margin-bottom: 20px;
+    text-align: left; /* Teks label tetap kiri */
+}
+
+/* Kotak input putih (username/password) */
+.login-form-new input {
+    width: 100%;
+    padding: 12px 15px;
+    border: none; /* Tidak ada garis tepi */
+    border-radius: 4px; /* Sudut sedikit melengkung */
+    background-color: #fff; /* Putih bersih */
+    font-size: 14px;
+    color: #333;
+}
+
+/* Placeholder color (teks panduan di dalam input) */
+.login-form-new input::placeholder {
+    color: #aaa;
+}
+
+/* Styling saat input di-klik (tidak ada outline) */
+.login-form-new input:focus {
+    outline: none;
+    background-color: #fcfcfc;
+}
+
+.btn-login-new {
+    width: 100%;
+    background-color: #00E5FF;
+    color: #fff;
+    padding: 12px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* =========================================
+   8. UTILS (ALERTS, AUTOCOMPLETE, ETC)
+   ========================================= */
+.custom-alert-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999;
+}
+
+.custom-alert-box {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border: 2px solid #000;
+    box-shadow: 8px 8px 0px #FFC000;
+}
+
+.main-footer {
+    background-color: #5B9BD5;
+    color: #000;
+    text-align: center;
+    padding: 15px;
+}
